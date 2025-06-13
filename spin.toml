@@ -1,0 +1,19 @@
+spin_manifest_version = 2
+
+[application]
+name = "spin-biggo"
+version = "0.1.0"
+authors = ["Adam Reese <adam@reese.io>"]
+description = ""
+
+[[trigger.http]]
+route = "/..."
+component = "spin-biggo"
+
+[component.spin-biggo]
+source = "main.wasm"
+allowed_outbound_hosts = []
+[component.spin-biggo.build]
+command = "GOOS=wasip1 GOARCH=wasm go build -o main.wasm ."
+# command = "tinygo build -target=wasip2 --wit-package $(go list -mod=readonly -m -f '{{.Dir}}' github.com/spinframework/spin-go-sdk/v2)/wit --wit-world http-trigger -o main.wasm main.go"
+watch = ["**/*.go", "go.mod"]
